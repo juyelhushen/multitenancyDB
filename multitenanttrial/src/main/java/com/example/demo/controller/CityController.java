@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +14,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.City;
+import com.example.demo.repository.CityRepository;
 import com.example.demo.service.CityService;
 
 @RestController
 public class CityController {
+	
+	@Autowired
+	CityRepository repo;
 
     @Autowired
     private CityService cityService;
+    
+    @RequestMapping(value = "/city", method = RequestMethod.GET)
+    @Cacheable(value = "CityCache")
+    public List<City> fetchAll()
+    {
+    	return repo.findAll();
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody City city) {

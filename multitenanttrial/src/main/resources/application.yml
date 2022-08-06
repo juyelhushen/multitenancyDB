@@ -14,4 +14,23 @@ spring:
         hbm2ddl:
           auto: none
   main:  
-    allow-circular-references: true      
+    allow-circular-references: true   
+#spring.redis.host=localhost
+#spring.redis.port=6379
+#spring.redis.timeout=10000
+#
+#spring.cache.redis.cache-null-values= false
+#spring.cache.redis.key-prefix= transaction
+#spring.cache.redis.use-key-prefix= false
+##spring.cache.redis.time-to-live=1000
+    
+  redis:
+    host: localhost
+    port: 6379
+    
+         
+  cache:
+    redis:
+      cache-null-values: false
+     
+    
